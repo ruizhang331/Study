@@ -69,3 +69,64 @@ int Numofone(int x){
     return counter;
 
 }
+
+//Swapping values with XOR 
+#define SWAP(a, b) (((a) ^= (b)), ((b) ^= (a)), ((a) ^= (b)))
+
+/*
+Reverse bits of an unsigned integer.
+We only need to perform the swap when the ith bit and the jth bit are different. To test if two bits are different, we could use the XOR operation. Then, we need to toggle both ith and jth bits. We could apply the XOR operation again. By XOR-ing the ith and jth bit with 1, both bits are toggled.
+typedef unsigned int uint;
+*/
+
+//method 1
+uint swapBits(uint x, uint i, uint j) {
+  uint lo = ((x >> i) & 1);
+  uint hi = ((x >> j) & 1);
+  if (lo ^ hi) {
+    x ^= ((1U << i) | (1U << j));
+  }
+  return x;
+}
+ 
+uint reverseXor(uint x) {
+  uint n = sizeof(x) * 8;
+  for (uint i = 0; i < n/2; i++) {
+    x = swapBits(x, i, n-i-1);
+  }
+  return x;
+}
+
+//Method 2
+unsigned int v; // 32 bit word to reverse bit order
+ 
+// swap odd and even bits
+v = ((v >> 1) & 0x55555555) | ((v & 0x55555555) << 1);
+// swap consecutive pairs
+v = ((v >> 2) & 0x33333333) | ((v & 0x33333333) << 2);
+// swap nibbles ... 
+v = ((v >> 4) & 0x0F0F0F0F) | ((v & 0x0F0F0F0F) << 4);
+// swap bytes
+v = ((v >> 8) & 0x00FF00FF) | ((v & 0x00FF00FF) << 8);
+// swap 2-byte long pairs
+v = ( v >> 16             ) | ( v               << 16);
+
+//method 3
+unsigned int reverseBits(unsigned int num)
+{
+    unsigned int count = sizeof(num) * 8 - 1;
+    unsigned int reverse_num = num;
+     
+    num >>= 1; 
+    while(num)
+    {
+       reverse_num <<= 1;       
+       reverse_num |= num & 1;
+       num >>= 1;
+       count--;
+    }
+    reverse_num <<= count;
+    return reverse_num;
+}
+
+
