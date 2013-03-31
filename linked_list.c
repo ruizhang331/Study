@@ -6,15 +6,16 @@ Find m to last in linked list
 */
 element *FindMtoLast(element *head, int m)
 {
-  element	*current,*mbehind;
+  	element	*current,*mbehind;
 	current = head;
 	
 	for(int i=0;i<m-1,i++){
-		current = current->next;
 		if(!current) return NULL;
+		current = current->next;
+		
 	}
 	
-	
+	if(!current) return NULL;
 	
 	mbehind = head;
 	while(current->next){
@@ -27,7 +28,33 @@ element *FindMtoLast(element *head, int m)
 
 /*
 Find whether there is circle in linked list
+return the begining of loop
 */
+Node* FindCycle(Node *head){
+	
+	Node* slow = head;
+	Node* fast = head;
+	
+	while(fast!=NULL && fast->next!=NULL){
+		
+		slow = slow->next;
+		fast = fast->next->next;
+		
+		if(slow == fast) break;
+	}
+	
+	if(fast == NULL || fast->next == NULL) return NULL;
+	
+	slow = head;
+	while(slow!=fast){
+		
+		slow = slow->next;
+		fast = fast->next;
+	}
+	
+	return fast;
+	
+}
 
 /*
 Reverse link list
