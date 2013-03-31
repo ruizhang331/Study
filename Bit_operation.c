@@ -112,21 +112,33 @@ v = ((v >> 8) & 0x00FF00FF) | ((v & 0x00FF00FF) << 8);
 v = ( v >> 16             ) | ( v               << 16);
 
 //method 3
-unsigned int reverseBits(unsigned int num)
+int reverseBits(int num)
 {
-    unsigned int count = sizeof(num) * 8 - 1;
-    unsigned int reverse_num = num;
-     
-    num >>= 1; 
-    while(num)
-    {
-       reverse_num <<= 1;       
-       reverse_num |= num & 1;
-       num >>= 1;
-       count--;
+    int count = sizeof(num) * 8 - 1;
+    int reverse_num = 0    
+    
+    while(count>=0){
+    	
+    	reverse_num |= (num&1)<<count;
+    	count--;
+    	num>>=1;
+    	
     }
-    reverse_num <<= count;
+    
+    
     return reverse_num;
 }
 
+
+unsigned int v;     // input bits to be reversed
+unsigned int r = v; // r will be reversed bits of v; first get LSB of v
+int s = sizeof(v) * CHAR_BIT - 1; // extra shift needed at end
+
+for (v >>= 1; v; v >>= 1)
+{   
+  r <<= 1;
+  r |= v & 1;
+  s--;
+}
+r <<= s; // shift when v's highest bits are zero
 
