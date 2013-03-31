@@ -11,9 +11,10 @@ element *FindMtoLast(element *head, int m)
 	
 	for(int i=0;i<m-1,i++){
 		current = current->next;
+		if(!current) return NULL;
 	}
 	
-	if(!current) return NULL;
+	
 	
 	mbehind = head;
 	while(current->next){
