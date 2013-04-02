@@ -142,3 +142,16 @@ for (v >>= 1; v; v >>= 1)
 }
 r <<= s; // shift when v's highest bits are zero
 
+
+unsigned int v;     // input bits to be reversed
+unsigned int r = 0; // r will be reversed bits of v; first get LSB of v
+int s = sizeof(v) * CHAR_BIT ; // extra shift needed at end
+
+for (; v; v >>= 1)
+{   
+  r |= v & 1;
+  r<<=1;
+  s--;
+}
+r <<= s; // shift when v's highest bits are zero
+
